@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1, h2, h3 { letter-spacing: -0.02em; }
+.display {
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  line-height: 0.95;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(1100px 560px at 80% -12%, rgba(34, 229, 101, 0.10), transparent 60%),
+    radial-gradient(820px 480px at 4% 8%, rgba(15, 158, 74, 0.07), transparent 62%),
+    radial-gradient(700px 700px at 50% 120%, rgba(34, 229, 101, 0.05), transparent 60%),
+    #070A08;
+  color: #f3f6f4;
+  min-height: 100vh;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(20, 26, 22, 0.62), rgba(10, 14, 11, 0.55));
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(34, 229, 101, 0.03);
+}
+/* frosted variant for hero / feature cards — heavier blur, brighter rim like the reference */
+.glass-strong {
+  background: linear-gradient(180deg, rgba(18, 24, 20, 0.5), rgba(8, 12, 9, 0.42));
+  backdrop-filter: blur(34px) saturate(140%);
+  -webkit-backdrop-filter: blur(34px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.gold-text {
+  background: linear-gradient(120deg, #7CFFB0 0%, #22E565 45%, #0F9E4A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gold-ring {
+  box-shadow: 0 0 0 1px rgba(34, 229, 101, 0.45), 0 0 22px rgba(34, 229, 101, 0.18);
+}
+/* glowing CTA like the reference "START LEARNING" button */
+.glow-btn {
+  background: linear-gradient(180deg, #2CF06E, #16C457);
+  color: #04130A;
+  box-shadow: 0 0 24px rgba(34, 229, 101, 0.45), 0 8px 24px rgba(0,0,0,0.4);
+}
+.glow-btn:hover { box-shadow: 0 0 34px rgba(34, 229, 101, 0.65), 0 8px 28px rgba(0,0,0,0.45); }
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(34, 229, 101, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 229, 101, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: rgba(34, 229, 101, 0.28); border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { width: 0; height: 0; }
+.no-scrollbar { scrollbar-width: none; }

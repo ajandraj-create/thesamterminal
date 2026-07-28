@@ -1,0 +1,13 @@
+{
+  "name": "TheSamTerminal",
+  "short_name": "TheSamTerminal",
+  "description": "Premium gold crypto terminal — live charts, drawing tools, quant analysis, paper trading.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070A08",
+  "theme_color": "#22E565",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
