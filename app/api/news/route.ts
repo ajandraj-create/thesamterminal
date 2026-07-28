@@ -71,6 +71,11 @@ function classify(t: string): "bullish" | "bearish" | "neutral" {
   return bull > bear ? "bullish" : bear > bull ? "bearish" : "neutral";
 }
 
+// Reject anything that isn't a plain http(s) link — feed content is external
+// and unsanitized, so a stray "javascript:"/"data:" entry must never reach
+// an <a href> on the client.
+const isHttpUrl = (u: string) => /^https?:\/\//i.test(u);
+
 async function fetchFeed(source: string, url: string): Promise<NewsArticle[]> {
   const res = await fetch(url, { cache: "no-store", headers: { "user-agent": "TheSamTerminal/1.0 (educational project)" } });
   if (!res.ok) throw new Error(`${source} ${res.status}`);
@@ -94,7 +99,7 @@ async function fetchFeed(source: string, url: string): Promise<NewsArticle[]> {
     const haystack = `${title} ${summary}`;
     const coins = Object.entries(COIN_KEYWORDS).filter(([, re]) => re.test(haystack)).map(([c]) => c);
     return { id: `${source}-${i}-${publishedAt}`, title, link, source, publishedAt, summary, coins, sentiment: classify(haystack) };
-  }).filter((a) => a.title && a.link);
+  }).filter((a) => a.title && a.link && isHttpUrl(a.link));
 }
 
 export async function GET() {
