@@ -50,7 +50,10 @@ export default async function CoinPage({ params }: { params: Promise<{ symbol: s
     <main className="mx-auto max-w-[1900px] px-3 py-3 space-y-3">
       <CoinHeader base={base} symbol={symbol} initial={ticker.data} bias={analysis.bias} demo={source === "demo"} />
 
-      <div className="grid xl:grid-cols-[1fr_300px] gap-3 items-start">
+      {/* Side rail (order ticket + key stats) sits beside the chart from lg up.
+          It used to require xl (1280px), which meant a laptop at 125% display
+          scaling dropped the ticket below the fold. */}
+      <div className="grid lg:grid-cols-[1fr_290px] xl:grid-cols-[1fr_320px] gap-3 items-start">
         <div className="space-y-3 min-w-0">
           <TerminalWorkspace symbol={symbol} support={analysis.technicals.support} resistance={analysis.technicals.resistance} />
           <div className="grid md:grid-cols-2 gap-3">
