@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Anton, Inter } from "next/font/google";
 import "./globals.css";
+
+// Self-hosted at build time by next/font — no external requests, so these load
+// under `font-src 'self'` and the strict CSP stays untouched. Both are SIL OFL.
+// Anton stands in for the PODIUM-style sharp display face.
+const display = Anton({ weight: "400", subsets: ["latin"], variable: "--font-podium", display: "swap" });
+const inter = Inter({ weight: ["400", "500", "600", "700"], subsets: ["latin"], variable: "--font-inter", display: "swap" });
 import Nav from "@/components/Nav";
 import TickerTape from "@/components/TickerTape";
 import PaperTickFeeder from "@/components/PaperTickFeeder";
@@ -26,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${inter.variable}`}>
       <body className="font-sans antialiased">
         <LiveTickerProvider>
         <SparklineProvider>

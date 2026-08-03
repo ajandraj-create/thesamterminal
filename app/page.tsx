@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BrainCircuit, Radio, Wallet } from "lucide-react";
+import { ArrowUpRight, Award, BrainCircuit, Crown, Radio, Wallet } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import Disclaimer from "@/components/Disclaimer";
 import HomeOverview from "@/components/HomeOverview";
@@ -10,78 +10,156 @@ const FEATURES = [
   { icon: Wallet, title: "Paper Trade Desk", body: "Practice on real live prices with simulated execution, brackets, fees, and full performance tracking." },
 ];
 
+/**
+ * Optional looping background video. Left null so the hero ships with the
+ * owned still (`/hero-trader.jpg`) plus a slow drift — no third-party asset is
+ * hotlinked and nothing loads off-origin, so the strict CSP stays intact.
+ * To use a video: drop your own file in `public/` and set this to "/hero.mp4".
+ */
+const HERO_VIDEO: string | null = null;
+
+/* Every figure here is verifiable from the codebase — no invented metrics. */
+const STATS = [
+  { value: "400+", label: "Trading Pairs" },
+  { value: "7", label: "Chart Timeframes" },
+  { value: "24/7", label: "Live Market Data" },
+];
+
 export default function Home() {
   return (
-    <main className="grid-bg">
-      <section className="relative overflow-hidden border-b border-edgesoft">
-        {/* ambient green glow blobs */}
-        <div className="pointer-events-none absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-gold/15 blur-[120px]" />
-        <div className="pointer-events-none absolute -bottom-20 right-0 h-96 w-96 rounded-full bg-bronze/15 blur-[130px]" />
-        <div className="pointer-events-none absolute top-1/3 right-1/3 h-64 w-64 rounded-full bg-gold/8 blur-[100px]" />
+    <main>
+      {/* ─── Hero ─────────────────────────────────────────────────────────── */}
+      <section className="relative isolate flex min-h-[calc(100svh-76px)] items-center overflow-hidden border-b border-edgesoft">
+        {/* Background media */}
+        <div className="absolute inset-0 -z-10">
+          {HERO_VIDEO ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/hero-trader.jpg"
+              className="h-full w-full object-cover"
+            >
+              <source src={HERO_VIDEO} type="video/mp4" />
+            </video>
+          ) : (
+            <div
+              className="h-full w-full bg-cover bg-center animate-hero-drift will-change-transform"
+              style={{ backgroundImage: "url(/hero-trader.jpg)", backgroundPosition: "center 28%" }}
+            />
+          )}
 
-        {/* blended hero image on the right — fades into the page so it reads as native */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[58%] hidden md:block">
+          {/* Readability + brand wash, layered so the subject stays visible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/70" />
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-90"
-            style={{ backgroundImage: "url(/hero-trader.jpg)", backgroundPosition: "center 30%" }}
+            className="absolute inset-0 mix-blend-overlay opacity-30"
+            style={{ background: "radial-gradient(60% 70% at 62% 45%, rgba(34,229,101,0.35), transparent 70%)" }}
           />
-          {/* left-to-right fade so the image dissolves into the black behind the text — lighter through the center so the subject stays bright */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, #070A08 0%, rgba(7,10,8,0.78) 16%, rgba(7,10,8,0.10) 42%, transparent 60%, rgba(7,10,8,0.30) 100%)" }} />
-          {/* gentle top & bottom feather only */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #070A08 0%, transparent 14%, transparent 86%, #070A08 100%)" }} />
-          {/* soft spotlight lifting the subject area */}
-          <div className="absolute inset-0" style={{ background: "radial-gradient(42% 55% at 42% 42%, rgba(255,255,255,0.10), transparent 70%)" }} />
-          {/* green glow wash to tie it to the theme */}
-          <div className="absolute inset-0 mix-blend-overlay opacity-30" style={{ background: "radial-gradient(60% 70% at 38% 50%, rgba(34,229,101,0.30), transparent 70%)" }} />
-          {/* faint grid overlay for the terminal feel */}
-          <div className="absolute inset-0 grid-bg opacity-20" />
+          <div className="absolute inset-0 grid-bg opacity-[0.18]" />
         </div>
 
-        <div className="mx-auto max-w-[1400px] px-4 py-14 md:py-24 relative">
-          <div className="max-w-2xl">
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-gold">Live · 24/7 · The Sam Market Desk</p>
-            <h1 className="display text-5xl md:text-7xl uppercase text-slate-50 mt-3 drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
-              Your edge.<br />Your market.<br /><span className="gold-text">Your terminal.</span>
+        <div className="mx-auto w-full max-w-[1400px] px-6 py-16 sm:px-10 lg:px-16 lg:py-24">
+          <div className="max-w-3xl">
+            {/* 1 — Tagline */}
+            <div className="mb-6 flex items-center gap-2.5 lg:mb-8 animate-fade-up">
+              <Crown className="h-4 w-4 text-gold/80" />
+              <span className="font-inter text-[10px] uppercase tracking-[0.3em] text-white/70 sm:text-xs">
+                Live · 24/7 · The Sam Market Desk
+              </span>
+            </div>
+
+            {/* 2 — Heading */}
+            <h1 className="font-podium uppercase leading-[0.92] tracking-tight text-white animate-fade-up-delay-1">
+              <span className="block text-[clamp(2.8rem,8vw,7rem)]">Your edge.</span>
+              <span className="block text-[clamp(2.8rem,8vw,7rem)]">Your market.</span>
+              <span className="block text-[clamp(2.8rem,8vw,7rem)] gold-text">Your terminal.</span>
             </h1>
 
-            {/* shining tagline */}
-            <p className="mt-6 text-lg md:text-2xl font-bold leading-snug tracking-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)]">
-              <span className="text-bull" style={{ textShadow: "0 0 18px rgba(34,229,101,0.45)" }}>Bull Markets</span>
-              <span className="text-slate-200"> Teach Success. </span>
-              <span className="text-bear" style={{ textShadow: "0 0 18px rgba(229,72,77,0.4)" }}>Bear Markets</span>
-              <span className="text-slate-200"> Test Success.</span>
-              <br />
-              <span className="text-slate-100">Master Both with </span>
-              <span className="gold-text" style={{ filter: "drop-shadow(0 0 14px rgba(34,229,101,0.5))" }}>SAM.</span>
-            </p>
-
-            <p className="text-sm md:text-base text-muted mt-5 max-w-xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-              TheSamTerminal brings live crypto prices, market news, signal analysis, and paper trading into one premium workspace built for sharper decisions.
-            </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <Link href="/coin/BTC" className="glow-btn rounded-full px-6 py-2.5 text-sm font-bold transition active:scale-95">Analyze BTC →</Link>
-              <Link href="/markets" className="rounded-full border border-gold/30 bg-ink/40 backdrop-blur px-5 py-2.5 text-sm font-semibold text-muted hover:text-gold hover:border-gold/50 transition active:scale-95">Market Command</Link>
-              <Link href="/screener" className="rounded-full border border-gold/30 bg-ink/40 backdrop-blur px-5 py-2.5 text-sm font-semibold text-muted hover:text-gold hover:border-gold/50 transition active:scale-95">Alpha Scanner</Link>
+            {/* 3 — Subtext */}
+            <div className="mt-6 max-w-xl animate-fade-up-delay-2 lg:mt-8">
+              <p className="font-inter text-base font-semibold leading-snug tracking-tight sm:text-lg">
+                <span className="text-bull">Bull markets</span>
+                <span className="text-white/80"> teach success. </span>
+                <span className="text-bear">Bear markets</span>
+                <span className="text-white/80"> test it.</span>
+              </p>
+              <p className="mt-3 font-inter text-sm leading-relaxed text-white/70 sm:text-base">
+                Live crypto prices, market news, signal analysis, and paper trading in one
+                workspace built for sharper decisions.
+              </p>
             </div>
-            <div className="mt-4 max-w-md"><SearchBar /></div>
+
+            {/* 4 — CTA row */}
+            <div className="mt-8 flex flex-wrap items-center gap-4 animate-fade-up-delay-3 sm:gap-6 lg:mt-10">
+              <Link
+                href="/coin/BTC"
+                className="group inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 font-inter text-[11px] font-bold uppercase tracking-widest text-ink transition hover:bg-goldsoft active:scale-95 sm:px-7 sm:py-4 sm:text-xs"
+              >
+                Analyze BTC
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+
+              <Link
+                href="/markets"
+                className="inline-flex items-center rounded-full border border-white/25 px-5 py-3 font-inter text-[11px] font-semibold uppercase tracking-widest text-white/80 transition hover:border-white/60 hover:bg-white/10 hover:text-white active:scale-95 sm:px-7 sm:py-4 sm:text-xs"
+              >
+                Market Command
+              </Link>
+
+              <div className="hidden items-center gap-3 sm:flex">
+                <Award className="h-8 w-8 text-white/40" />
+                <div className="font-inter text-xs uppercase tracking-wider text-white/60">
+                  <div>Keyless access</div>
+                  <div>No signup needed</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Search stays in the hero — it's the fastest path into the terminal */}
+            <div className="mt-6 max-w-md animate-fade-up-delay-3">
+              <SearchBar />
+            </div>
+
+            {/* 5 — Stats */}
+            <div className="mt-8 flex flex-wrap gap-6 animate-fade-up-delay-4 sm:mt-10 sm:gap-12 lg:mt-14 lg:gap-16">
+              {STATS.map((s) => (
+                <div key={s.label}>
+                  <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                    {s.value}
+                  </div>
+                  <div className="mt-1 font-inter text-[9px] uppercase tracking-widest text-white/50 sm:text-xs">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1400px] px-4 py-6">
-        <HomeOverview />
+      {/* ─── Below the fold ───────────────────────────────────────────────── */}
+      <section className="grid-bg">
+        <div className="mx-auto max-w-[1400px] px-4 py-6">
+          <HomeOverview />
 
-        <div className="grid sm:grid-cols-3 gap-3 mt-8">
-          {FEATURES.map((f, i) => (
-            <div key={f.title} className="glass-strong rounded-2xl p-6 hover:border-gold/30 hover:-translate-y-1 transition animate-fadeUp" style={{ animationDelay: `${i * 90}ms` }}>
-              <f.icon className="h-5 w-5 text-gold" />
-              <h3 className="text-sm font-semibold text-slate-100 mt-3">{f.title}</h3>
-              <p className="text-xs text-dim mt-1.5 leading-relaxed">{f.body}</p>
-            </div>
-          ))}
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {FEATURES.map((f, i) => (
+              <div
+                key={f.title}
+                className="glass-strong animate-fadeUp rounded-2xl p-6 transition hover:-translate-y-1 hover:border-gold/30"
+                style={{ animationDelay: `${i * 90}ms` }}
+              >
+                <f.icon className="h-5 w-5 text-gold" />
+                <h3 className="mt-3 text-sm font-semibold text-slate-100">{f.title}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-dim">{f.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6"><Disclaimer /></div>
         </div>
-
-        <div className="mt-6"><Disclaimer /></div>
       </section>
     </main>
   );

@@ -69,6 +69,68 @@ body {
   background-size: 48px 48px;
 }
 
+@layer utilities {
+  .font-podium {
+    font-family: var(--font-podium), Impact, Haettenschweiler, sans-serif;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  /* Slow drift over the hero still, so the backdrop reads as motion
+     without shipping a video file. */
+  @keyframes hero-drift {
+    from { transform: scale(1.06) translate3d(0, 0, 0); }
+    to   { transform: scale(1.16) translate3d(-1.5%, -1.5%, 0); }
+  }
+
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3,
+  .animate-fade-up-delay-4 {
+    opacity: 0;
+    animation: fade-up 0.8s ease-out forwards;
+  }
+  .animate-fade-up          { animation-delay: 0s; }
+  .animate-fade-up-delay-1  { animation-delay: 0.2s; }
+  .animate-fade-up-delay-2  { animation-delay: 0.4s; }
+  .animate-fade-up-delay-3  { animation-delay: 0.6s; }
+  .animate-fade-up-delay-4  { animation-delay: 0.8s; }
+
+  .animate-fade-in       { opacity: 0; animation: fade-in 0.8s ease-out forwards; }
+  .animate-fade-in-delay { opacity: 0; animation: fade-in 0.8s ease-out 0.3s forwards; }
+  .animate-scale-in      { opacity: 0; animation: scale-in 0.8s ease-out forwards; }
+
+  .animate-hero-drift { animation: hero-drift 26s ease-in-out infinite alternate; }
+
+  /* Respect users who ask for reduced motion — show everything, move nothing. */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up,
+    .animate-fade-up-delay-1,
+    .animate-fade-up-delay-2,
+    .animate-fade-up-delay-3,
+    .animate-fade-up-delay-4,
+    .animate-fade-in,
+    .animate-fade-in-delay,
+    .animate-scale-in {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    .animate-hero-drift { animation: none; }
+  }
+}
+
 ::-webkit-scrollbar { width: 9px; height: 9px; }
 ::-webkit-scrollbar-thumb { background: rgba(34, 229, 101, 0.28); border-radius: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
