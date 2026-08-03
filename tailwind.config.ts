@@ -21,12 +21,8 @@ const config: Config = {
         dim: "#7A7A82",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        sans: ["system-ui", "-apple-system", "Segoe UI", "Inter", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "JetBrains Mono", "monospace"],
-        // Display face for hero/brand type. `podium` keeps the naming from the
-        // original spec; it's backed by a self-hosted, OFL-licensed font.
-        podium: ["var(--font-podium)", "Impact", "Haettenschweiler", "sans-serif"],
-        inter: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       keyframes: {
         floaty: { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-10px)" } },
