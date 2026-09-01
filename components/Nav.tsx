@@ -28,6 +28,7 @@ function TSTLogo() {
 const LINKS = [
   { href: "/markets", label: "Market Command" },
   { href: "/screener", label: "Alpha Scanner" },
+  { href: "/compare", label: "Compare" },
   { href: "/news", label: "Sam Newswire" },
   { href: "/watchlist", label: "Watchtower" },
 ];
